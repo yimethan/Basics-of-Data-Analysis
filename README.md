@@ -26,6 +26,14 @@
     - [iter()](#iter)
     - [generator](#generator)
 - [4](#4)
+  - [Recursive functions](#recursive-functions)
+    - [Memoization (top-down approach)](#memoization-top-down-approach)
+    - [Tabulation (bottom-up approach)](#tabulation-bottom-up-approach)
+  - [Arguments](#arguments)
+    - [Keyword arguments](#keyword-arguments)
+    - [Default arguments](#default-arguments)
+    - [Variable-length arguments (Unpacking)](#variable-length-arguments-unpacking)
+    - [Keyword variable-length arguments](#keyword-variable-length-arguments)
 
 ---
 
@@ -439,3 +447,67 @@ print(next(gen))
 
 # 4
 
+## Recursive functions
+
+### Memoization (top-down approach)
+
+### Tabulation (bottom-up approach)
+
+## Arguments
+
+### Keyword arguments
+
+```python
+def print_something(personname, univname):
+    print(f"Hello {personname} in {univname}")
+
+print_something("Taewon", "SCH University")
+print_something(personname = "yim", univname = "SCH University")
+print_something(univname = "SCH University", personname = "yim")
+```
+
+### Default arguments
+
+```python
+def print_something(personname, univname="SCH University"):
+    print(f"Hello {personname} in {univname}")
+
+print_something("yim", "SCH University")
+print_something("yim", univname = "Other University")
+```
+
+### Variable-length arguments (Unpacking)
+
++ 가변인자
+
+```python
+def summation(a, b, *args):
+    # return a + b + sum(args)
+    print(a, b, args)
+
+print(summation(1,2))
+print(summation(1,2,3,4,5))
+```
+
+### Keyword variable-length arguments
+
++ 매개변수를 딕셔너리로
+
+```python
+def kwargs_test(**kwargs):
+    print(kwargs['first'], kwargs['second'], kwargs['third'])
+
+kwargs_test(first = 3, second = 4, third = 5)
+```
+
++ 딕셔너리를 전달해도 됨
+
+```python
+def print_major_info(**kwargs):
+    print(kwargs['Major'])
+
+info = {'Name':'Taewon', 'Affiliation':'SCH University'}
+info['Major']='Electrical Engineering'
+
+print_major_info(**info)
+```
