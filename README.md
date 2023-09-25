@@ -34,6 +34,13 @@
     - [Default arguments](#default-arguments)
     - [Variable-length arguments (Unpacking)](#variable-length-arguments-unpacking)
     - [Keyword variable-length arguments](#keyword-variable-length-arguments)
+    - [\*args + \*\*kwargs](#args--kwargs)
+  - [yield](#yield)
+  - [Type annotation](#type-annotation)
+- [5](#5)
+  - [String](#string-1)
+    - [String manipulations](#string-manipulations)
+    - [Formatting and Literal](#formatting-and-literal)
 
 ---
 
@@ -511,3 +518,78 @@ info['Major']='Electrical Engineering'
 
 print_major_info(**info)
 ```
+
+### *args + **kwargs
+
+```python
+def f(*args, **kwargs):
+    print(args)
+    print(kwargs)
+    
+f(10, 20, name='yim', age='20', gender='male')
+```
+
+## yield
+
++ iterable
+
+```python
+def test_generator():
+    yield 1
+    yield 2
+    yield 3
+
+gen = test_generator()
+print(next(gen))
+print(next(gen))
+print(next(gen))
+```
+
++ 
+
+```python
+def weird_calculator(a, b):
+    print(f"Addition: {a} + {b}")
+    yield a+b
+    
+    print(f"Subtraction: {a} - {b}")
+    yield a-b
+    
+    print(f"Multiplication: {a} * {b}")
+    yield a*b
+    
+    print(f"Division: {a} / {b}")
+    yield a/b
+    
+a = 10
+b = 5
+g = weird_calculator(a, b)
+print(type(g))
+
+print(next(g))
+print(next(g))
+print(next(g))
+print(next(g))
+```
+
+## Type annotation
+
+```python
+age: int = 10
+```
+
+```python
+def greeting(name: str) -> str:
+    return 'Hello ' + name
+
+greetings = greeting('yim')
+print(greetings)
+```
+
+# 5
+
+## String
+
+### String manipulations
+
+### Formatting and Literal
