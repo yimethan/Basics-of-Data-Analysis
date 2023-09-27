@@ -40,7 +40,10 @@
 - [5](#5)
   - [String](#string-1)
     - [String manipulations](#string-manipulations)
-    - [Formatting and Literal](#formatting-and-literal)
+    - [File](#file)
+    - [Formatting and Literals](#formatting-and-literals)
+- [6](#6)
+  - [conda](#conda)
 
 ---
 
@@ -313,6 +316,14 @@ print(repr(string))
 
 # Hello World
 # 'Hello World'
+```
+
++ repr() to int and string
+
+```python
+print(f"{repr(int_value)} = {repr(str_value)}")
+
+# 5 = '5'
 ```
 
 ## Static memory allocation
@@ -592,4 +603,133 @@ print(greetings)
 
 ### String manipulations
 
-### Formatting and Literal
++ strip(): get rid of spaces in both sides
++ split(): splits string by spaces
++ split('.'): splits string by '.'
++ list is immutable data type
+
+```python
+str_example = " 수익률 (1M/3M/6M/1Y)/ +4.58%/ -4.78%/ -4.66%/ +34.20%  "
+print(str_example)
+print("============")
+
+print(str_example.strip())
+print(str_example.split())
+print(str_example.split("/"))
+
+# immutable
+stripped_str_example = str_example.strip()
+print(stripped_str_example.split("/ "))
+```
+
+### File
+
++ write
+
+```python
+filename = 'yesterday.txt'
+lyric_file = open(filename, 'wb')
+lyric_file.write(lyric)
+lyric_file.close()
+```
+
++ readline() and readlines()
+
+```python
+f = open('yesterday.txt', 'r')
+lyric_with_readline = f.readline()  # one line
+lyric_with_readlines = f.readlines()  # all lines, including '\n'
+f.close()
+```
+
+### Formatting and Literals
+
++ padding
+
+```python
+num_pi = "3.141592"
+num_e = "2.718281"
+
+print("PI is %s and Euler's number is %s." % (num_pi, num_e))
+print("PI is {} and Euler's number is {}.".format(num_pi, num_e))
+print(f"PI is {num_pi} and Euler's number is {num_e}.")
+
+# Padding
+print("===Padding===")
+print("PI is %10s and Euler's number is %s." % (num_pi, num_e))
+print("PI is {:>10} and Euler's number is {}.".format(num_pi, num_e))
+print(f"PI is {num_pi:>10} and Euler's number is {num_e}.")
+```
++ '' % 3
+
+```python
+'I eat %d apples.' % 3
+```
+
++ Numeric literals
+
+```python
+# Integer Literals
+a = 0b1010 # Binary Literals
+b = 100 # Decimal Literal
+c = 0o310 # Octal Literal
+d = 0x12c # Hexadecimal Literal
+
+# Float Literal
+float_1 = 10.5
+float_2 = 1.512e2
+
+# Complex Literal
+x = 1.1 + 3.14j
+
+print(a, b, c, d)
+print(float_1, float_2)
+print(x, x.real, x.imag)
+```
+
++ String literals
+
+```python
+# String Literals
+strings = "This is Python"
+char = "C"
+multiline_str = """This is a multiline string with more than one line code."""
+unicode = u"\u00dcnic\u00f6de"
+raw_str = r"raw \n string"
+
+print(strings)
+print(char)
+print(multiline_str)
+print(unicode)
+print(raw_str)
+```
+
++ Boolean literals
+
+```python
+# Boolean Literals
+x = (1 == True)
+y = (1 == False)
+a = True + 4
+b = False + 10
+
+print("x is", x)
+print("y is", y)
+print("a:", a)
+print("b:", b)
+```
+
+# 6
+
+## conda
+
+```bash
+conda create -n "name" python=3.10
+```
+
+```bash
+conda activate name
+```
+
+```bash
+```
