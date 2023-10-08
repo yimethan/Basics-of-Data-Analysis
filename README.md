@@ -44,6 +44,20 @@
     - [Formatting and Literals](#formatting-and-literals)
 - [6](#6)
   - [conda](#conda)
+  - [numpy](#numpy)
+    - [배열 만들기](#배열-만들기)
+    - [list + list, np array + np array](#list--list-np-array--np-array)
+    - [array copy](#array-copy)
+    - [Shallow copy \& Deep copy](#shallow-copy--deep-copy)
+  - [array 만들기](#array-만들기)
+    - [ones, zeros, empty](#ones-zeros-empty)
+    - [.shape, .ndim, .dtype](#shape-ndim-dtype)
+    - [eye](#eye)
+    - [.astype(int)](#astypeint)
+  - [행/열 전환과 형태 변환](#행열-전환과-형태-변환)
+    - [.reshape()](#reshape)
+    - [.T](#t)
+  - [인덱싱과 자르기](#인덱싱과-자르기)
 
 ---
 
@@ -348,6 +362,9 @@ print(id(c) == id(d))
 # True
 # True
 ```
+
++ integers used frequently (range of -5 ~ 256) are saved in cache in advance
+  + id({int}) are the same for those integers
 
 ## range()
 
@@ -733,3 +750,175 @@ conda activate name
 
 ```bash
 ```
+
+## numpy
+
+### 배열 만들기
+
++ np.array()
+
+```python
+numbers = np.array(range(1, 11), copy=True)
+```
+
++ np.arange()
+
+```python
+num = np.arange(1, 11, 1)
+```
+
+```python
+print(type(a1))
+# <class 'numpy.ndarray'>
+```
+
+### list + list, np array + np array
+
++ lists are concatenated
++ np arrays are summed elementwise
+
+```python
+a = [1, 2, 3]
+b = [4, 5, 6]
+print(a + b)
+# [1, 2, 3, 4, 5, 6]
+
+a1 = np.array([1, 2, 3])
+b1 = np.array([4, 5, 6])
+print(a1 + b1)
+# [5 7 9]
+```
+
+### array copy
+
++ copy=True 
+  + 별개의 np array로
+  + default
++ copy=False
+  + 변경 시 같이 변경됨
+
+```python
+a1 = np.array([1, 2, 3])
+a2 = np.array(a1, copy=False)
+a3 = np.arary(a1, copy=True)
+
+a1[0] = 50
+print(f"a1: {a1}")
+print(f"a2: {a2}")
+print(f"a3: {a3}")
+
+# a1: [50  2  3]
+# a2: [50  2  3]
+# a3: [1 2 3]
+```
+
+### Shallow copy & Deep copy
+
++ shallow copy
+  + 이중으로 들어가 있으면 copy 안 됨
+  + numpy 메모리 관리로 인한 현상
+
+```python
+a = np.array([1, 'm', [2, 3, 4]], dtype=object)
+
+b = np.copy(a)
+
+b[2][0] = 10
+
+print(a)
+print(b)
+# [1 'm' list([10, 3, 4])]
+# [1 'm' list([10, 3, 4])]
+```
+
++ deep copy
+
+```python
+import copy
+
+a = np.array([1, 'm', [2, 3, 4]], dtype=object)
+c = copy.deepcopy(a)
+
+c[2][0] = 10
+
+print(a)
+print(c)
+# [1 'm' list([2, 3, 4])]
+# [1 'm' list([10, 3, 4])]
+```
+
+## array 만들기
+
+### ones, zeros, empty
+
+```python
+ones = np.ones([2, 4], dtype=np.float64)
+
+zeros = np.zeros([2, 4], dtype=np.float64)
+
+empty = np.empty([2, 4], dtype=np.float64)
+# not always 0
+```
+
+### .shape, .ndim, .dtype
+
+```python
+ones.shape
+# (2, 4)
+
+number.ndim
+# same as len(numbers.shape)
+# 1
+
+zeros.dtype
+# dtype('float64')
+```
+
+### eye
+
+```python
+eye = np.eye(3, k=1)
+
+# array([[0., 1., 0.],
+#        [0., 0., 1.],
+#        [0., 0., 0.]])
+```
+
+### .astype(int)
+
+```python
+np_inumbers = np_numbers.astype(int)
+```
+
+## 행/열 전환과 형태 변환
+
+### .reshape()
+
++ NP.reshape(2, 4)
+
+```python
+sap2d = sap.reshape(2, 4)
+sap3d = sap.reshape(2, 2, 2)
+```
+
++ np.reshape(NP, [2, 4])
+
+```python
+sap2d_1 = np.reshape(sap, [2, 4])
+```
+
+### .T
+
++ NP.T
+
+```python
+sap2d.T
+```
+
++ np.transpose(NP)
+
+```python
+np.transpose(sap2d)
+```
+
+## 인덱싱과 자르기
