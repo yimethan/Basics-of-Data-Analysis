@@ -1,11 +1,11 @@
-- [1](#1)
+- [1 python basics](#1-python-basics)
   - [input()](#input)
   - [type 함수](#type-함수)
     - [cannot convert {type} to {type}](#cannot-convert-type-to-type)
   - [isinstance 함수](#isinstance-함수)
     - [isinstance](#isinstance)
   - [{str} \* {int}](#str--int)
-- [2](#2)
+- [2 list](#2-list)
   - [List](#list)
     - [Slicing](#slicing)
     - [Append](#append)
@@ -13,7 +13,7 @@
   - [Mutable \& Immutable data types](#mutable--immutable-data-types)
     - ['==' and 'is'](#-and-is)
     - [Lists](#lists)
-- [3](#3)
+- [3 string](#3-string)
   - [string](#string)
     - [f-string](#f-string)
     - [r-string](#r-string)
@@ -25,7 +25,7 @@
   - [iteretor and generator](#iteretor-and-generator)
     - [iter()](#iter)
     - [generator](#generator)
-- [4](#4)
+- [4 functions, arguments, type annotation](#4-functions-arguments-type-annotation)
   - [Recursive functions](#recursive-functions)
     - [Memoization (top-down approach)](#memoization-top-down-approach)
     - [Tabulation (bottom-up approach)](#tabulation-bottom-up-approach)
@@ -37,12 +37,12 @@
     - [\*args + \*\*kwargs](#args--kwargs)
   - [yield](#yield)
   - [Type annotation](#type-annotation)
-- [5](#5)
+- [5 string, file](#5-string-file)
   - [String](#string-1)
     - [String manipulations](#string-manipulations)
     - [File](#file)
     - [Formatting and Literals](#formatting-and-literals)
-- [6](#6)
+- [6 numpy array](#6-numpy-array)
   - [conda](#conda)
   - [numpy](#numpy)
     - [배열 만들기](#배열-만들기)
@@ -58,10 +58,19 @@
     - [.reshape()](#reshape)
     - [.T](#t)
   - [인덱싱과 자르기](#인덱싱과-자르기)
+    - [조건으로 bool 배열](#조건으로-bool-배열)
+    - [array\[조건\] = value](#array조건--value)
+    - [Smart indexing, Smart slicing](#smart-indexing-smart-slicing)
+- [7 numpy, pandas](#7-numpy-pandas)
+  - [Series](#series)
+    - [S.values](#svalues)
+    - [먼저 Series 생성하고 인덱스를 설정](#먼저-series-생성하고-인덱스를-설정)
+    - [Series와 인덱스에 이름 붙이기](#series와-인덱스에-이름-붙이기)
+    - [head(), tail()](#head-tail)
 
 ---
 
-# 1
+# 1 python basics
 
 ## input()
 
@@ -123,7 +132,7 @@ print(a * 3)
 # 101010
 ```
 
-# 2
+# 2 list
 
 ## List
 
@@ -300,7 +309,7 @@ print(id(list2), list2)
 # 140200781017216 [1, 2, 3, 4]
 ```
 
-# 3
+# 3 string
 
 ## string
 
@@ -480,7 +489,7 @@ print(next(gen))
 # 3
 ```
 
-# 4
+# 4 functions, arguments, type annotation
 
 ## Recursive functions
 
@@ -614,7 +623,7 @@ greetings = greeting('yim')
 print(greetings)
 ```
 
-# 5
+# 5 string, file
 
 ## String
 
@@ -736,7 +745,7 @@ print("a:", a)
 print("b:", b)
 ```
 
-# 6
+# 6 numpy array
 
 ## conda
 
@@ -860,6 +869,17 @@ empty = np.empty([2, 4], dtype=np.float64)
 # not always 0
 ```
 
++ np.int8, int16, int32, int64, float16, uint8, ...
++ dimension
+  + np.ones(4, dtype=np.float64)
+    + array([1., 1., 1., 1.])
+    + shape (4,)
+    + ndim 1
+  + np.ones([1, 4], dtype=np.float64)
+    + array([[1., 1., 1., 1.]])
+    + shape (1, 4)
+    + ndim 2
+
 ### .shape, .ndim, .dtype
 
 ```python
@@ -922,3 +942,200 @@ np.transpose(sap2d)
 ```
 
 ## 인덱싱과 자르기
+
+### 조건으로 bool 배열
+
+```python
+dirty = np.array([9, 4, 1, -0.01, -0.02, -0.001])
+whos_dirty = dirty < 0 # 불 배열을 불 인덱스로 사용한다.
+whos_dirty
+
+# array([False, False, False, True, True, True])
+```
+
+```python
+linear = np.arange(-1, 1.1, 0.2)
+(linear <= 0.5) & (linear >= -0.5)
+
+# array([False, False, False,  True,  True,  True,  True,  True, False, False, False])
+```
+
+### array[조건] = value
+
++ 리스트에서는 불가
+
+```python
+dirty[whos_dirty] = 0 # 모든 음수값을 0으로 바꾼다.
+dirty
+```
+
+### Smart indexing, Smart slicing
+
+```python
+sap[[1, 2, -1]]
+
+# 인덱스 1, 2, -1에 해당하는 값
+```
+
++ 행렬 인덱싱
+
+2D 행렬이 
+
+```python
+array([['MMM', 'ABT', 'ABBV', 'ACN'],
+       ['ACE', 'ATVI', 'ADBE', 'ADT']], dtype='<U4')
+```
+
+일 때,
+
+```python
+sap2d[:, [1]]
+
+# sap2d는 2*4 행렬
+# 결과는 2D array
+# array(['ABT', 'ATVI'], dtype='<U4')
+```
+
+```python
+sap2d[:, 1]
+
+# 결과는 1D array
+# array([['ABT'],
+      #  ['ATVI']], dtype='<U4')
+```
+
+3D 행렬이
+
+```python
+# array([[['MMM', 'ABT'],
+#         ['ABBV', 'ACN']],
+
+#        [['ACE', 'ATVI'],
+#         ['ADBE', 'ADT']]], dtype='<U4')
+```
+
+일 때,
+
+```python
+sap3d[0, ...]
+
+# array([['MMM', 'ABT'],
+      #  ['ABBV', 'ACN']], dtype='<U4')
+```
+
+# 7 numpy, pandas
+
++ pandas는 인덱스를 포함하므로 딕셔너리와 잘 호환됨
+
+```python
+inflation.index
+# RangeIndex(start=0, stop=16, step=1)
+
+inflation.index.values
+# array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15])
+```
+
++ 딕셔너리를 Series로
+
+```
+inflation = pd.Series({1999: 2.2, 
+                       2000: 3.4, 
+                       2001: 2.8, 
+                       2002: 1.6, 
+                       2003: 2.3, 
+                       2004: 2.7, 
+                       2005: 3.4, 
+                       2006: 3.2, 
+                       2007: 2.8, 
+                       2008: 3.8, 
+                       2009: -0.4, 
+                       2010: 1.6, 
+                       2011: 3.2, 
+                       2012: 2.1, 
+                       2013: 1.5, 
+                       2014: 1.6, 
+                       2015: np.nan})
+# 1999    2.2
+# 2000    3.4
+# 2001    2.8
+# 2002    1.6
+# 2003    2.3
+# 2004    2.7
+# 2005    3.4
+# 2006    3.2
+# 2007    2.8
+# 2008    3.8
+# 2009   -0.4
+# 2010    1.6
+# 2011    3.2
+# 2012    2.1
+# 2013    1.5
+# 2014    1.6
+# 2015    NaN
+# dtype: float64
+```
+
+## Series
+
+: 1D vector
+
+```python
+inflation = pd.Series((2.2, 3.4, 2.8, 1.6, 2.3, 2.7, 3.4, 3.2, 2.8, 3.8, -0.4, 1.6, 3.2, 2.1, 1.5, 1.5))
+```
+
+### S.values
+
++ 딕셔너리는 D.values()
++ `Dict: keys() values() items()`
++ `Series: index, values`
+
+```python
+inflation.values
+
+# array([ 2.2,  3.4,  2.8,  1.6,  2.3,  2.7,  3.4,  3.2,  2.8,  3.8, -0.4, 1.6,  3.2,  2.1,  1.5,  1.5])
+```
+
+### 먼저 Series 생성하고 인덱스를 설정
+
+```python
+inflation = pd.Series((2.2, 3.4, 2.8, 1.6, 2.3, 2.7, 3.4, 3.2, 2.8, 3.8, -0.4, 1.6, 3.2, 2.1, 1.6, 1.5))
+inflation.index = pd.Index(range(1999, 2015))
+```
+
+### Series와 인덱스에 이름 붙이기
+
+```python
+inflation.index.name = "Year" 
+inflation.name = "Inflation Rate"
+
+# Year
+# 1999    2.2
+# 2000    3.4
+# 2001    2.8
+# 2002    1.6
+# 2003    2.3
+# 2004    2.7
+# 2005    3.4
+# 2006    3.2
+# 2007    2.8
+# 2008    3.8
+# 2009   -0.4
+# 2010    1.6
+# 2011    3.2
+# 2012    2.1
+# 2013    1.6
+# 2014    1.5
+# Name: Inflation Rate, dtype: float64
+```
+
+```python
+inflation.columns = ["%"]
+```
+
+### head(), tail()
+
+```python
+# default 5
+inflation.head()
+inflation.tail(10)
+```
