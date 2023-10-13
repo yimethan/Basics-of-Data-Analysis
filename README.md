@@ -632,7 +632,7 @@ print(greetings)
 + strip(): get rid of spaces in both sides
 + split(): splits string by spaces
 + split('.'): splits string by '.'
-+ list is immutable data type
++ list is mutable data type
 
 ```python
 str_example = " 수익률 (1M/3M/6M/1Y)/ +4.58%/ -4.78%/ -4.66%/ +34.20%  "
