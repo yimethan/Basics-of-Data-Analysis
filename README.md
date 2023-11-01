@@ -1,3 +1,32 @@
+- [1](#1)
+  - [DataFrame](#dataframe)
+    - [make dataframe](#make-dataframe)
+    - [read tabular data](#read-tabular-data)
+    - [excel](#excel)
+    - [add \& set values of new column](#add--set-values-of-new-column)
+  - [select rows \& columns](#select-rows--columns)
+    - [select columns](#select-columns)
+    - [boolean indexing](#boolean-indexing)
+    - [loc](#loc)
+    - [조건 slicing in specific column](#조건-slicing-in-specific-column)
+    - [iloc](#iloc)
+  - [plot](#plot)
+    - [simple plot](#simple-plot)
+  - [combine tables](#combine-tables)
+    - [.concatenate](#concatenate)
+    - [.join](#join)
+  - [sort](#sort)
+  - [CheatSheet](#cheatsheet)
+- [2](#2)
+  - [Class, Attribute, Constructor, Function](#class-attribute-constructor-function)
+  - [상속, 다형성](#상속-다형성)
+    - [super().\_\_init(params)](#super__initparams)
+  - [가시성](#가시성)
+  - [Modules and packages](#modules-and-packages)
+    - [Module](#module)
+    - [Custom module](#custom-module)
+
+
 # 1
 
 ## DataFrame
@@ -148,3 +177,78 @@ air_quality = pd.merge(air_quality_pm25, air_quality_no2, on="date.utc")
 ```python
 air_quality = air_quality.sort_values("date.utc")
 ```
+
+## CheatSheet
+
+![one](week10/1.png)
+![two](week10/2.png)
+
+---
+
+# 2
+
+## Class, Attribute, Constructor, Function
+
+```python
+class Cookie:
+  # foodtype = 'Yummy!'  # attribute
+  def __init__(self, taste='Yummy!'):
+    self.taste = taste
+
+  def set_taste(self, taste):
+    self.taste = taste
+
+a = Cookie()
+b = Cookie('Bad!')
+b.set_taste('Hmm... not bod.')
+```
+
+## 상속, 다형성
+
+### super().__init(params)
+
+```python
+class Player():
+    def __init__(self, name, back_number):
+        self.name = name
+        self.back_number = back_number
+        
+    def print_stat(self):
+        print(f"This is {self.__class__.__name__} Class")
+        print(f"Player Name: {self.name}")
+        print(f"Back Number: {self.back_number}")
+        
+        
+class SoccerPlayer(Player):
+    def __init__(self, name, back_number, position):
+        super().__init__(name, back_number)
+        self.position = position
+        
+    def print_stat(self):
+        super().print_stat()
+        print(f"Position: {self.position}")
+        
+        
+class BaseballPlayer(Player):
+    def __init__(self, name, back_number, position, avg):
+        super().__init__(name, back_number)
+        self.position = position
+        self.avg = avg
+        
+    def print_stat(self):
+        super().print_stat()
+        print(f"Position: {self.position}")
+        print(f"Batting Average: {self.avg}")
+```
+
+## 가시성
+
+## Modules and packages
+
+### Module
+
+### Custom module
+
++ from <package> import *
++ from <package> import <module>
++ import <module> (as <abbr>)
