@@ -25,6 +25,17 @@
   - [Modules and packages](#modules-and-packages)
     - [Module](#module)
     - [Custom module](#custom-module)
+- [3](#3)
+  - [file](#file)
+  - [csv](#csv)
+    - [with numpy](#with-numpy)
+    - [with pandas DataFrame](#with-pandas-dataframe)
+  - [matplotlib](#matplotlib)
+    - [plt.plot()](#pltplot)
+    - [plt.show()](#pltshow)
+    - [marker](#marker)
+    - [axis](#axis)
+    - [legend](#legend)
 
 
 # 1
@@ -252,3 +263,30 @@ class BaseballPlayer(Player):
 + from <package> import *
 + from <package> import <module>
 + import <module> (as <abbr>)
+
+# 3
+
+## file
+
+## csv
+
+### with numpy
+
+### with pandas DataFrame
+
+## matplotlib
+
+### plt.plot()
+
++ with labeled data
+
+### plt.show()
+
+-> 화면에 출력한 뒤 데이터 삭제함 (저장하려면 show하기 전에 해야 함)
+
+### marker
+
+### axis
+
+### legend
+
